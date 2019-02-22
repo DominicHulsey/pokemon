@@ -1,0 +1,10 @@
+#cardImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pokeCard {
+  border-radius: 10px;
+  max-height:500px;
+}

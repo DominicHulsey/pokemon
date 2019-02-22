@@ -2,26 +2,20 @@ export default class Pokemon {
   constructor(data) {
     //get real info from api
     this.name = data.name
+    this.url = data.url
+    this.id = data.id
+    this.img = data.sprites.front_default;
+
   }
 
-  getCard(button) {
-    return `
-        <div class="col-3">
-        <div class="card">
-                <img class="card-img-top" src="${this.img}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">${this.name}</h5>
-                    <p class="card-text">${this.description}</p>
-                    ${button}
-                </div>
-                <form hidden id="${this.id}" onsubmit="app.controllers.marvelController.editHero(event)">
-                    <input type="text" name="description">
-                    <button class="btn btn-info" type="submit">Submit</button>
-                </form>
-                    
-        </div>
-        </div>
+  getTemplate() {
+    return `<div class="col-2 d-flex flex-column">
+    <div class="card my-2 shadow rounded" onclick="app.controllers.pokeController.getCard('${this.name}')">
+    <div class="card-text"><h5 class="text-center">#${this.id}</h5></div>
+<img id="cardImg" src="${this.img}" />
+<div class="card-title"><h6 class="text-center">${this.name}</h6></div>
+</div>
+</div>
         `
   }
-
 }
