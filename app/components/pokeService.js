@@ -62,7 +62,7 @@ export default class PokeService {
 
   getPokemonData() {
     let endpoints = []
-    for (let i = 1; i < 20; i++) {
+    for (let i = 1; i < 103; i++) {
       endpoints.push("" + i)
     }
     let promises = endpoints.map(endPoint => {
@@ -95,32 +95,42 @@ export default class PokeService {
           }
           else {
             template += `<div class="carousel-item">
-            <img class="d-block pokeCard" src="${imageArray[i]}" alt="Second slide">
+            <img class="pokeCard" src="${imageArray[i]}" alt="Second slide">
           </div>`
           }
         } template += `</div> 
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon pokeCard" aria-hidden="true"></span>
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
           <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon pokeCard" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
               </div>`
-        document.getElementById('card1').innerHTML += template
-        console.log(template)
+        document.getElementById('card-container').innerHTML = template
+        document.getElementById('main-container').classList.add('overlay')
+        document.getElementById('card-container').classList.add('card')
+        document.getElementById('main-container').onclick = function () {
+          document.getElementById('main-container').classList.remove('overlay')
+          document.getElementById('card-container').classList.remove('card')
+          document.getElementById('card-container').innerHTML = ''
+        }
       })
 
   }
 
   cardTemplate(arr) {
-    return `<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner pokeCard">
-            <div class="carousel-item active">
+    return `
+    <div class="col-2">
+    <button class="btn btn-primary" onclick="app.controllers.pokeController.remCard()"
+        id="backButton"><i class="fas fa-chevron-left"></i> Back </button></div>
+    <div class="mt-5 float-left bg-transparent">
+      <div id="carouselExampleControls" class="carousel slide float-left" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
             <img class="pokeCard" src="${arr[0]}" alt="First slide">
           </div>
-          
 `
   }
 }

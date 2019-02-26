@@ -1,10 +1,42 @@
+
+
 #cardImg {
   display: block;
-  width: 100%;
   height: auto;
+  width: 100%;
 }
 
 .pokeCard {
   border-radius: 10px;
-  max-height:500px;
+  width: 40vh;
+  height: auto;
+}
+
+#pokemonCard {
+  transition: all 0.25s linear;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+#card-container {
+  position:absolute;
+  z-index:11;
+  margin-top:15vh;
+}
+
+#carouselExampleControls {
+  margin: 0 auto;
+  max-width: 41%;
+}
+
+#pokemonCard:hover {
+  transform:scale(1.05);
 }
