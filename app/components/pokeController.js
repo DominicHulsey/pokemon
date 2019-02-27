@@ -33,8 +33,12 @@ export default class PokeController {
   remCard() {
     document.getElementById('main-container').classList.remove('overlay')
     document.getElementById('card-container').innerHTML = ''
-    document.getElementById('card-container').classList.remove('card')
+    document.getElementById('card-container').classList.remove('card', 'background1')
+    document.getElementById('moreData').innerHTML = ''
   }
+
+
+
   getCard(name) {
     _pokeService.myCard(name)
   }

@@ -3,7 +3,6 @@ export default class Card {
     //get real info from api
     this.name = data.name
     this.img = data.img
-
   }
 
   getCard() {

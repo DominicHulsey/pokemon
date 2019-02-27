@@ -1,4 +1,5 @@
 import Pokemon from "../models/pokemon.js";
+import PokeData from "../models/pokeData.js";
 // @ts-ignore
 import Card from "../models/cards.js";
 
@@ -7,7 +8,7 @@ import Card from "../models/cards.js";
 
 // @ts-ignore
 let _pokeAPI = axios.create({
-  baseURL: 'https://pokeapi.co/api/v2/pokemon/'
+  baseURL: 'https://pokeapi.co/api/v2/'
 })
 
 // @ts-ignore
@@ -29,7 +30,11 @@ let _pokemon = `?offset=${_offset}&limit=${_limit}`
 let _state = {
   apiPokemon: [],
   myTeam: [],
-  card: []
+  data: []
+}
+
+let _evState = {
+  evoPoke: []
 }
 
 let _subscribers = {
@@ -60,10 +65,11 @@ export default class PokeService {
     return _state.myTeam.map(h => new Pokemon(h))
   }
 
+
   getPokemonData() {
     let endpoints = []
     for (let i = 1; i < 103; i++) {
-      endpoints.push("" + i)
+      endpoints.push("pokemon/" + i)
     }
     let promises = endpoints.map(endPoint => {
       return _pokeAPI.get(endPoint)
@@ -77,9 +83,14 @@ export default class PokeService {
         setState('apiPokemon', pokemon)
       })
   }
+
   myCard(name) {
+    _pokeAPI.get("pokemon/" + name)
+      .then(res => {
+        let data = new PokeData(res.data)
+        document.getElementById('moreData').innerHTML = data.getTemplate()
+      })
     document.getElementById('card1').innerHTML = ''
-    // @ts-ignore
     let template = ''
     _cardAPI.get("cards?name=" + name)
       .then(res => {
@@ -107,17 +118,37 @@ export default class PokeService {
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
-              </div>`
+              </div>
+              <div class="col-10" id="moreData"></div>`
         document.getElementById('card-container').innerHTML = template
         document.getElementById('main-container').classList.add('overlay')
-        document.getElementById('card-container').classList.add('card')
+        document.getElementById('card-container').classList.add('card', "background1")
         document.getElementById('main-container').onclick = function () {
           document.getElementById('main-container').classList.remove('overlay')
-          document.getElementById('card-container').classList.remove('card')
+          document.getElementById('card-container').classList.remove('card', 'background1')
           document.getElementById('card-container').innerHTML = ''
+          document.getElementById('moreData').innerHTML = ''
         }
-      })
+      });
 
+  }
+
+  getEvos() {
+    let endpoints = []
+    for (let i = 1; i < 103; i++) {
+      endpoints.push("evolution-chain/" + i + "/")
+    }
+    let promises = endpoints.map(endPoint => {
+      return _pokeAPI.get(endPoint)
+        .then(res => {
+          return res.data
+        })
+    })
+    Promise.all(promises)
+      .then(res => {
+        let pokemon = res.map(p => new Pokemon(p))
+        setState('apiPokemon', pokemon)
+      })
   }
 
   cardTemplate(arr) {

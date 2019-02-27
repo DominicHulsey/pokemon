@@ -5,7 +5,6 @@ export default class Pokemon {
     this.url = data.url
     this.id = data.id
     this.img = data.sprites.front_default;
-
   }
 
   getTemplate() {
