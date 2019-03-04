@@ -30,16 +30,14 @@ let _pokemon = `?offset=${_offset}&limit=${_limit}`
 let _state = {
   apiPokemon: [],
   myTeam: [],
-  data: []
-}
-
-let _evState = {
-  evoPoke: []
+  data: [],
+  evos: []
 }
 
 let _subscribers = {
   apiPokemon: [],
   myTeam: [],
+  evos: []
 }
 
 function setState(prop, value) {
@@ -65,10 +63,14 @@ export default class PokeService {
     return _state.myTeam.map(h => new Pokemon(h))
   }
 
+  get evos() {
+    return _state.evos
+  }
+
 
   getPokemonData() {
     let endpoints = []
-    for (let i = 1; i < 103; i++) {
+    for (let i = 1; i < 80; i++) {
       endpoints.push("pokemon/" + i)
     }
     let promises = endpoints.map(endPoint => {
@@ -84,7 +86,41 @@ export default class PokeService {
       })
   }
 
+
+  getEvos(id) {
+    _pokeAPI.get(`pokemon-species/${id}`)
+      .then(res => {
+        _pokeAPI.get(res.data.evolution_chain.url.split('').splice(26).join(''))
+          .then(res => {
+            if (res.data.chain.species) {
+              let evo1 = res.data.chain.species.name
+              let pokeObject = _state.apiPokemon.find(e => e.name == evo1)
+              document.getElementById('evos').innerHTML += `${pokeObject.getTemplate()} <i class="fas fa-arrow-right text-white topMargin"></i> `
+            }
+            if (res.data.chain.evolves_to[0]) {
+              let evo2 = res.data.chain.evolves_to[0].species.name
+              let pokeObject = _state.apiPokemon.find(e => e.name == evo2)
+              document.getElementById('evos').innerHTML += pokeObject.getTemplate()
+              if (res.data.chain.evolves_to[0].evolves_to.length > 0) {
+                document.getElementById('evos').innerHTML += `<i class="fas fa-arrow-right text-white topMargin"></i>`
+              }
+              else {
+                document.getElementById('evos').classList.remove('offset-5')
+                document.getElementById('evos').classList.add('offset-6')
+                document.getElementById('evoText').classList.remove('pr-5')
+              }
+            }
+            if (res.data.chain.evolves_to[0].evolves_to.length > 0) {
+              let evo3 = res.data.chain.evolves_to[0].evolves_to[0].species.name
+              let pokeObject = _state.apiPokemon.find(e => e.name == evo3)
+              document.getElementById('evos').innerHTML += pokeObject.getTemplate()
+            }
+          })
+      })
+  }
+
   myCard(name) {
+    document.getElementById('evos').innerHTML = ''
     _pokeAPI.get("pokemon/" + name)
       .then(res => {
         let data = new PokeData(res.data)
@@ -98,7 +134,7 @@ export default class PokeService {
         let newCard = data.filter(c => c.name.toLowerCase() == name)
         let imageArray = []
         newCard.forEach(p => {
-          imageArray.push(p.imageUrlHiRes)
+          imageArray.push(p.imageUrl)
         })
         for (let i = 0; i < imageArray.length; i++) {
           if (i == 0) {
@@ -119,7 +155,7 @@ export default class PokeService {
             <span class="sr-only">Next</span>
           </a>
               </div>
-              <div class="col-10" id="moreData"></div>`
+              `
         document.getElementById('card-container').innerHTML = template
         document.getElementById('main-container').classList.add('overlay')
         document.getElementById('card-container').classList.add('card', "background1")
@@ -128,27 +164,10 @@ export default class PokeService {
           document.getElementById('card-container').classList.remove('card', 'background1')
           document.getElementById('card-container').innerHTML = ''
           document.getElementById('moreData').innerHTML = ''
+          document.getElementById('evos').innerHTML = ''
         }
       });
 
-  }
-
-  getEvos() {
-    let endpoints = []
-    for (let i = 1; i < 103; i++) {
-      endpoints.push("evolution-chain/" + i + "/")
-    }
-    let promises = endpoints.map(endPoint => {
-      return _pokeAPI.get(endPoint)
-        .then(res => {
-          return res.data
-        })
-    })
-    Promise.all(promises)
-      .then(res => {
-        let pokemon = res.map(p => new Pokemon(p))
-        setState('apiPokemon', pokemon)
-      })
   }
 
   cardTemplate(arr) {

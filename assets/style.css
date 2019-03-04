@@ -1,9 +1,11 @@
-
-
 #cardImg {
   display: block;
   height: auto;
   width: 100%;
+}
+
+li {
+  list-style-type: none;
 }
 
 .pokeCard {
@@ -48,6 +50,15 @@
 #moreData {
   position:absolute;
   z-index:12;
-  margin-top:20vh;
+  margin-top:15vh;
+}
 
+.topMargin {
+  margin-top: 10vh;
+}
+
+#evos {
+  position:absolute;
+  z-index:12;
+  margin-top:62vh;
 }

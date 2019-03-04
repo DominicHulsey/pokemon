@@ -9,7 +9,7 @@ export default class Pokemon {
 
   getTemplate() {
     return `<div class="col-2" id="pokemonCard">
-    <div class="card my-2 shadow rounded" onclick="app.controllers.pokeController.getCard('${this.name}')">
+    <div class="card my-2 shadow rounded" onclick="app.controllers.pokeController.getCard('${this.name}'),app.controllers.pokeController.getEvos('${this.id}')">
     <div class="card-text"><h5 class="text-center">#${this.id}</h5></div>
 <img id="cardImg" src="${this.img}" />
 <div class="card-title"><h6 class="text-center">${this.name}</h6></div>
