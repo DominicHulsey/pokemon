@@ -105,8 +105,6 @@ export default class PokeService {
                 document.getElementById('evos').innerHTML += `<i class="fas fa-arrow-right text-white topMargin"></i>`
               }
               else {
-                document.getElementById('evos').classList.remove('offset-5')
-                document.getElementById('evos').classList.add('offset-6')
                 document.getElementById('evoText').classList.remove('pr-5')
               }
             }
@@ -158,10 +156,9 @@ export default class PokeService {
               `
         document.getElementById('card-container').innerHTML = template
         document.getElementById('main-container').classList.add('overlay')
-        document.getElementById('card-container').classList.add('card', "background1")
         document.getElementById('main-container').onclick = function () {
           document.getElementById('main-container').classList.remove('overlay')
-          document.getElementById('card-container').classList.remove('card', 'background1')
+          document.getElementById('card-container').classList.remove('background1')
           document.getElementById('card-container').innerHTML = ''
           document.getElementById('moreData').innerHTML = ''
           document.getElementById('evos').innerHTML = ''
@@ -172,11 +169,10 @@ export default class PokeService {
 
   cardTemplate(arr) {
     return `
-    <div class="col-2">
     <button class="btn btn-primary" onclick="app.controllers.pokeController.remCard()"
-        id="backButton"><i class="fas fa-chevron-left"></i> Back </button></div>
-    <div class="mt-5 float-left bg-transparent">
-      <div id="carouselExampleControls" class="carousel slide float-left" data-ride="carousel">
+        id="backButton"><i class="fas fa-chevron-left"></i> Back </button>
+    <div class=" bg-transparent">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="pokeCard" src="${arr[0]}" alt="First slide">

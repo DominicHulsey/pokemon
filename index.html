@@ -3,10 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/style.css">
@@ -15,14 +18,11 @@
 
 <body>
   <div id="main-container"></div>
-  <main class="container-fluid">
-    <div class="row">
-      <div class="col-8 offset-2 d-flex flex-column p-2 justify-content-center pb-5" id="card-container">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6 offset-5c text-white" id="moreData"></div>
-      <div class="col-7 d-flex flex-row offset-5 pl-5" id="evos"></div>
+  <main class="container-fluid background">
+    <div id="card-container"></div>
+    <div class="text-white" id="moreData"></div>
+    <div class="col-12 d-flex flex-row pl-5" id="evos"></div>
+
     </div>
     <div class="row">
       <div class="col">
@@ -34,11 +34,8 @@
       <div class="col d-flex justify-content-center" id="card1">
       </div>
     </div>
-    <div class="row myteam">
-      <div class="col-3 border-right">
-        <h1>my Team:</h1>
-      </div>
-      <div class="col-9 d-flex flex-row flex-wrap justify-content-center" id="pokemon"></div>
+    <div class="row">
+      <div class="col-12 d-flex flex-row flex-wrap justify-content-center" id="pokemon"></div>
     </div>
   </main>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

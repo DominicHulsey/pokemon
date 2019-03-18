@@ -39,8 +39,6 @@ export default class PokeController {
 
   getEvos(id) {
     document.getElementById('evos').innerHTML = ""
-    document.getElementById('evos').classList.remove('offset-6')
-    document.getElementById('evos').classList.add('offset-5')
     _pokeService.getEvos(id)
   }
 

@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
 li {
   list-style-type: none;
 }
@@ -12,6 +16,7 @@ li {
   border-radius: 10px;
   width: 40vh;
   height: auto;
+  position: fixed;
 }
 
 #pokemonCard {
@@ -19,28 +24,42 @@ li {
 }
 
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.5);
-    z-index: 10;
+    z-index: 1;
+}
+
+.details {
+  position: fixed;
+  height: 500px;
+  width: 800px;
+  background-color: rgba(77, 77, 77, 0.605)
 }
 
 #card-container {
-  position:absolute;
+  position:fixed;
   z-index:11;
-  margin-top:15vh;
+  margin-top: 25px;
+  margin-left: 100px
 }
 
-.background1 {
-    background-color: rgba(79, 79, 79, 0.714);
+.background {
+  background-color: rgb(174, 174, 242);
 }
+
 
 #carouselExampleControls {
-  margin: 0 auto;
-  width: 40vh;
+  width:300px;
+  margin-left: 150px;
+}
+
+#backButton {
+  margin-left: 50px;
+  margin-bottom: 50px;
 }
 
 #pokemonCard:hover {
@@ -50,15 +69,26 @@ li {
 #moreData {
   position:absolute;
   z-index:12;
-  margin-top:15vh;
+  margin-top:50px;
+  margin-left: 700px;
 }
 
-.topMargin {
-  margin-top: 10vh;
+.carousel-control-next {
+  margin-top: 200px;
+  margin-right: 25px;
 }
 
+.carousel-control-prev {
+  margin-top: 200px;
+  margin-right: 25px;
+}
+
+.cardCarousel {
+  margin-left: 600px;
+}
 #evos {
-  position:absolute;
+  position:fixed;
   z-index:12;
-  margin-top:62vh;
+  margin-top:500px;
+  margin-left: 400px;
 }
